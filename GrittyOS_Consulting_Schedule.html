@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f5f5f2; padding: 32px; font-family: 'Barlow', sans-serif; }
+  .slide { max-width: 860px; margin: 0 auto; }
+  .header { display: flex; align-items: center; gap: 20px; background: #0a2e14; border-radius: 12px; padding: 20px 28px; margin-bottom: 16px; }
+  .logo-circle { width: 64px; height: 64px; flex-shrink: 0; border-radius: 50%; overflow: hidden; }
+  .logo-circle img { width: 64px; height: 64px; object-fit: contain; border-radius: 50%; }
+  .header-text h1 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; font-weight: 400; color: #7fff4a; margin: 0 0 4px; letter-spacing: 2px; }
+  .header-text p { font-size: 13px; color: #9fcf85; margin: 0; }
+  .badge { display: inline-block; background: #7fff4a; color: #0a2e14; font-family: 'Oswald', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-left: 10px; vertical-align: middle; }
+  .existing-card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+  .existing-icon { width: 38px; height: 38px; background: #eaf3de; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: #3b6d11; flex-shrink: 0; letter-spacing: 1px; }
+  .existing-text { font-size: 13px; color: #555; line-height: 1.5; }
+  .existing-text strong { font-family: 'Oswald', sans-serif; font-weight: 500; color: #111; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card { background: #fff; border: 0.5px solid #ddd; border-radius: 12px; overflow: hidden; }
+  .card-header { background: #0a2e14; padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+  .card-header-icon { width: 34px; height: 34px; background: #7fff4a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #0a2e14; flex-shrink: 0; }
+  .card-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 24px; font-weight: 400; color: #7fff4a; margin: 0; letter-spacing: 1.5px; }
+  .card-header span { font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 400; color: #9fcf85; display: block; margin-top: 1px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-body { padding: 16px 20px; }
+  .schedule-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid #e5e5e5; }
+  .schedule-row:last-of-type { border-bottom: none; }
+  .day-pill { font-family: 'Oswald', sans-serif; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; background: #eaf3de; color: #3b6d11; border-radius: 20px; padding: 3px 10px; min-width: 88px; text-align: center; flex-shrink: 0; }
+  .time-text { font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 500; color: #111; }
+  .sub-text { font-size: 12px; color: #777; margin-top: 1px; }
+  .session-block { background: #f5f5f2; border-radius: 8px; padding: 8px 12px; margin: 8px 0; border-left: 3px solid #3b6d11; }
+  .session-block.accent { border-left-color: #7fff4a; }
+  .session-label { font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 500; color: #111; text-transform: uppercase; letter-spacing: 0.5px; }
+  .session-time { font-size: 12px; color: #666; margin-top: 2px; }
+  .note-row { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; padding: 8px 12px; background: #eaf3de; border-radius: 8px; }
+  .note-dot { width: 6px; height: 6px; background: #3b6d11; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .note-text { font-size: 12px; color: #3b6d11; line-height: 1.5; font-weight: 500; }
+  .platform-bar { display: flex; align-items: center; gap: 10px; margin-top: 10px; background: #f5f5f2; border-radius: 8px; padding: 10px 12px; border: 0.5px solid #e0e0e0; }
+  .platform-logo { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; flex-shrink: 0; }
+  .platform-text { font-size: 12px; color: #666; line-height: 1.5; }
+  .platform-text strong { font-family: 'Oswald', sans-serif; font-weight: 500; color: #111; font-size: 13px; display: block; }
+  .window-block { background: #f5f5f2; border-radius: 8px; padding: 8px 12px; margin: 8px 0; border-left: 3px solid #7fff4a; }
+  .window-label { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 600; color: #3b6d11; text-transform: uppercase; letter-spacing: 0.5px; }
+  .window-text { font-size: 12px; color: #666; margin-top: 2px; line-height: 1.5; }
+  .book-btn { display: block; margin-top: 10px; background: #0a2e14; color: #7fff4a; font-family: 'Oswald', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-align: center; padding: 10px 16px; border-radius: 8px; text-decoration: none; }
+  .footer { background: #f0f0ec; border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; border: 0.5px solid #ddd; }
+  .footer-item { display: flex; align-items: center; gap: 8px; }
+  .footer-dot { width: 8px; height: 8px; background: #3b6d11; border-radius: 50%; flex-shrink: 0; }
+  .footer-label { font-family: 'Oswald', sans-serif; font-size: 11px; font-weight: 400; color: #777; text-transform: uppercase; letter-spacing: 0.5px; }
+  .footer-value { font-family: 'Oswald', sans-serif; font-size: 14px; font-weight: 500; color: #111; }
+  .divider { width: 1px; height: 32px; background: #ddd; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <div class="logo-circle">
+      <img src="/mnt/user-data/uploads/Gritty_OS_Sticker_Logo.png" alt="GrittyOS Logo" />
+    </div>
+    <div class="header-text">
+      <h1>Updated Consulting Schedule <span class="badge">New</span></h1>
+      <p>Flexible support for every student-athlete — wherever your schedule takes you</p>
+    </div>
+  </div>
+
+  <div class="existing-card">
+    <div class="existing-icon">1:1</div>
+    <div class="existing-text">
+      <strong>Existing clients keep their weekly consulting times.</strong> If you currently have a reserved weekly slot, nothing changes — you can keep it as-is.
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon">G</div>
+        <div>
+          <h2>Gritty Groups</h2>
+          <span>Drop-in group recruiting advisory</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="schedule-row">
+          <div class="day-pill">Mon – Thu</div>
+          <div>
+            <div class="time-text">5:30 – 7:30 PM</div>
+            <div class="sub-text">Two 1-hour sessions each evening</div>
+          </div>
+        </div>
+        <div class="session-block accent" style="margin-top: 10px;">
+          <div class="session-label">Session slots</div>
+          <div class="session-time">Session A: 5:30 PM &nbsp;·&nbsp; Session B: 6:30 PM</div>
+        </div>
+        <div class="note-row">
+          <div class="note-dot"></div>
+          <div class="note-text">No booking needed — drop in anytime. Parents welcome.</div>
+        </div>
+        <div class="platform-bar">
+          <img class="platform-logo" src="/mnt/user-data/uploads/skool-logo-42451996.png" alt="Skool" />
+          <div class="platform-text">
+            <strong>Access via Skool</strong>
+            Meeting links are posted in the GrittyOS Skool community — no calendar invite required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-icon">G</div>
+        <div>
+          <h2>Gritty Goals</h2>
+          <span>Open 1-to-1 self-schedule sessions</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="schedule-row">
+          <div class="day-pill">Saturday</div>
+          <div>
+            <div class="time-text">11:00 AM – 4:00 PM</div>
+            <div class="sub-text">1-hour 1:1 sessions</div>
+          </div>
+        </div>
+        <div class="schedule-row">
+          <div class="day-pill">Sunday</div>
+          <div>
+            <div class="time-text">6:00 – 9:00 PM</div>
+            <div class="sub-text">1-hour 1:1 sessions</div>
+          </div>
+        </div>
+        <div class="window-block">
+          <div class="window-label">Booking window</div>
+          <div class="window-text">Opens Monday 9:00 AM · Closes Thursday 11:00 PM<br>Book within 5 days of your session — no advance booking beyond that window.</div>
+        </div>
+        <div class="platform-bar">
+          <img class="platform-logo" src="/mnt/user-data/uploads/Google-Calendar-Logo-277911881.png" alt="Google Calendar" />
+          <div class="platform-text">
+            <strong>Book via Google Calendar</strong>
+            Meeting link included in your calendar invitation after booking.
+          </div>
+        </div>
+        <a class="book-btn" href="https://calendar.app.google/Muov1UE2NTHDcdgV7">Book a Gritty Goals Session ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-item">
+      <div class="footer-dot"></div>
+      <div>
+        <div class="footer-label">Questions?</div>
+        <div class="footer-value">Skool · @Coach Conroy</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="footer-item">
+      <div class="footer-dot"></div>
+      <div>
+        <div class="footer-label">Call or text anytime</div>
+        <div class="footer-value">617-516-4761</div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="footer-item" style="font-size: 12px; color: #888; font-style: italic;">
+      Parents are welcome to join any Gritty Groups or Gritty Goals session
+    </div>
+  </div>
+</div>
+</body>
+</html>
